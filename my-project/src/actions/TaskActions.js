@@ -20,7 +20,7 @@ export const getTasks = () => {
 export const addTask = (task) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(apiUrl, { ...task, priority: 'medium' });
+      const response = await axios.post('http://localhost:5000/tasks', { ...task, priority: 'medium' });
       dispatch({
         type: 'ADD_TASK',
         payload: response.data,
@@ -34,7 +34,7 @@ export const addTask = (task) => {
 export const deleteTask = (taskId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`${apiUrl}/${taskId}`);
+      await axios.delete(`${'http://localhost:5000/tasks'}/${taskId}`);
       dispatch({
         type: 'DELETE_TASK',
         payload: taskId,
@@ -49,7 +49,7 @@ export const toggleTask = (taskId) => {
   return async (dispatch, getState) => {
     const task = getState().tasks.find((task) => task.id === taskId);
     try {
-      const response = await axios.patch(`${apiUrl}/${taskId}`, { completed: !task.completed });
+      const response = await axios.patch(`${'http://localhost:5000/tasks'}/${taskId}`, { completed: !task.completed });
       dispatch({
         type: 'TOGGLE_TASK',
         payload: response.data,
@@ -63,7 +63,7 @@ export const toggleTask = (taskId) => {
 export const updateTask = (taskId, updatedTask) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${apiUrl}/${taskId}`, updatedTask);
+      const response = await axios.put(`${'http://localhost:5000/tasks'}/${taskId}`, updatedTask);
       dispatch({
         type: 'UPDATE_TASK',
         payload: response.data,
